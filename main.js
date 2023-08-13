@@ -61,6 +61,7 @@ const retrieveElements = (() => {
         cell9,
         cells
     };
+
 })();
 
 const gameBoard = (function () {
@@ -74,6 +75,8 @@ const gameBoard = (function () {
 
     for (const cell of retrieveElements.cells) {
         cell.addEventListener('click', () => {
+
+            retrieveElements.turnBox.style.display = 'flex';
 
             if (cell.textContent === '') {
                 if (turn === 'one') {
@@ -100,30 +103,45 @@ const gameBoard = (function () {
             } else if (cell4.textContent === 'O' && cell5.textContent === 'O' && cell6.textContent === 'O') {
                 reset('two');
             } else if (cell7.textContent === 'X' && cell8.textContent === 'X' && cell9.textContent === 'X') {
-                reset('one'); 
+                reset('one');
             } else if (cell7.textContent === 'O' && cell8.textContent === 'O' && cell9.textContent === 'O') {
                 reset('two');
-            }else if (cell1.textContent === 'X' && cell4.textContent === 'X' && cell7.textContent === 'X') {
-                reset('one');  
+            } else if (cell1.textContent === 'X' && cell4.textContent === 'X' && cell7.textContent === 'X') {
+                reset('one'); 
             } else if (cell1.textContent === 'O' && cell4.textContent === 'O' && cell7.textContent === 'O') {
                 reset('two'); 
-            }else if (cell2.textContent === 'X' && cell5.textContent === 'X' && cell8.textContent === 'X') {
+            } else if (cell2.textContent === 'X' && cell5.textContent === 'X' && cell8.textContent === 'X') {
                 reset('one'); 
             } else if (cell2.textContent === 'O' && cell5.textContent === 'O' && cell8.textContent === 'O') {
                 reset('two');
-            }else if (cell3.textContent === 'X' && cell6.textContent === 'X' && cell9.textContent === 'X') {
-                reset('one'); 
+            } else if (cell3.textContent === 'X' && cell6.textContent === 'X' && cell9.textContent === 'X') {
+                reset('one');
             } else if (cell3.textContent === 'O' && cell6.textContent === 'O' && cell9.textContent === 'O') {
-                reset('two'); 
-            }else if (cell1.textContent === 'X' && cell5.textContent === 'X' && cell9.textContent === 'X') {
-                reset('one'); 
+                reset('two');
+            } else if (cell1.textContent === 'X' && cell5.textContent === 'X' && cell9.textContent === 'X') {
+                reset('one');
             } else if (cell1.textContent === 'O' && cell5.textContent === 'O' && cell9.textContent === 'O') {
-                reset('two');  
-            }else if (cell3.textContent === 'X' && cell5.textContent === 'X' && cell7.textContent === 'X') {
-                reset('one'); 
+                reset('two'); 
+            } else if (cell3.textContent === 'X' && cell5.textContent === 'X' && cell7.textContent === 'X') {
+                reset('one');
             } else if (cell3.textContent === 'O' && cell5.textContent === 'O' && cell7.textContent === 'O') {
                 reset('two');
             }
+
+            if (cell1.textContent != '' &&
+                cell2.textContent != '' &&
+                cell3.textContent != '' &&
+                cell4.textContent != '' &&
+                cell5.textContent != '' &&
+                cell6.textContent != '' &&
+                cell7.textContent != '' &&
+                cell8.textContent != '' &&
+                cell9.textContent != '') {
+                    alert('Draw!');
+                    for (let i = 0; i < 9; i++) {
+                        retrieveElements.cells[i].textContent = '';
+                    }
+                }
         });
     }
 
@@ -151,7 +169,7 @@ function reset(winner) {
                 alert('Player one wins! Game over.');
             }, 1000);
             setTimeout(function() {
-                mainContainer.style.display = 'block';
+                nameContainer.style.display = 'flex';
                 secondContainer.style.display = 'none';
             }, 2000);
             setTimeout(function() {
@@ -180,7 +198,7 @@ function reset(winner) {
                 alert('Player one wins! Game over.');
             }, 1000);
             setTimeout(function() {
-                mainContainer.style.display = 'block';
+                nameContainer.style.display = 'flex';
                 secondContainer.style.display = 'none';
             }, 2000);
             setTimeout(function() {
@@ -193,7 +211,7 @@ function reset(winner) {
                 retrieveElements.twoScore.textContent = gameBoard.playerTwoScore;
             }, 2001);
         }
-    } 
+    }
 }
 
 function playerFactory(name, number) {
@@ -227,14 +245,12 @@ const eventListeners = (() => {
         mainContainer.style.display = 'none';
         secondContainer.style.display = 'none';
         console.log('Loaded!')
-
-        retrieveElements.oneName.textContent = 'Daniel';
-        retrieveElements.twoName.textContent = 'Michael';
     });
     
     retrieveElements.submit.addEventListener('click', () => {
         nameContainer.style.display = 'none';
         secondContainer.style.display = 'flex';
+        retrieveElements.turnBox.style.display = 'none';
         game = 'ongoing';
 
         playerFactory(retrieveElements.name1.value, 1);
